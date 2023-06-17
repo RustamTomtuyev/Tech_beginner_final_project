@@ -1,0 +1,87 @@
+{%extends "layout.html"%}
+
+{%block title%}  
+<title>Register</title> 
+<link href="{{ url_for('static', filename='css/flash.css') }}" rel="stylesheet" />
+
+{%endblock%}
+
+{%block body%}
+        
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Register</h1>
+        </div>
+    </div>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="flash-messages">
+        {% for message in messages %}
+          {% if 'error' in message %}
+            <li class="flash-message flash-error" style="background-color: rgb(236, 142, 142);">{{ message }}</li>
+          {% else %}
+            <li class="flash-message flash-success" style="background-color: rgb(167, 217, 167);">{{ message }}</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+    <!-- Page Header End -->
+
+
+    <!-- Contact Start -->
+    <div class="container-fluid pt-5">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="px-2">Input Credentials For Register</span></h2>
+        </div>
+        <div class="row justify-content-center px-xl-5">
+            <div class="col-lg-4 mb-5">
+                <div class="contact-form">
+                    <div id="success"></div>
+                    <form name="sentMessage" id="contactForm" novalidate="novalidate" method="post">
+                        
+                        <div class="control-group">
+                            {{ form.csrf_token }}
+                            <!-- <input type="text" class="form-control" id="name" placeholder="Full name"
+                                required="required" data-validation-required-message="Please enter your full name" /> -->
+
+                            {{form.name(class="form-control",id="name", placeholder="Full name")}}
+                            {%if errorname %}
+                              <div style="color: red;">{{errorname}}</div>
+                            {%endif%}
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <!-- <input type="email" class="form-control" id="email" placeholder="Email"
+                                required="required" data-validation-required-message="Please enter your email" /> -->
+                            {{form.email(class="form-control",id="email", placeholder="Email")}}
+                            {%if errormail %}
+                              <div style="color: red;">{{errormail}}</div>
+                            {%endif%}
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <!-- <input type="password" class="form-control" id="password" placeholder="Password"
+                                required="required" data-validation-required-message="Please enter your password" /> -->
+                                {{form.password(class="form-control",id="password", placeholder="Password")}}  
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <!-- <input type="password" class="form-control" id="password" placeholder="Confirm password"
+                                required="required" data-validation-required-message="Please enter your password" /> -->
+                                {{form.password_check(class="form-control",id="password", placeholder="Confirm password")}}
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <!-- Contact End --> 
+
+{%endblock%}

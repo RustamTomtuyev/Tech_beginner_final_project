@@ -1,0 +1,16 @@
+.flash-messages {
+    list-style-type: none;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .flash-message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+  
+  
+  
+  
