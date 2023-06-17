@@ -26,6 +26,7 @@ class User(UserMixin,db.Model):
         db.session.commit()
 
 class Favorite(db.Model):
+    
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
@@ -124,6 +125,22 @@ class contact(db.Model):
     def save(self):
         db.session.add(self)
         db.session.commit()
+
+
+class newsletter(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    email= db.Column(db.String(100), nullable=False)
+
+
+    def __init__(self,name,email):
+        self.name=name
+        self.email=email
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
 
 
 

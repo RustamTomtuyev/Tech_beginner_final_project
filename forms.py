@@ -29,6 +29,9 @@ class favorit(FlaskForm):
     is_active = BooleanField('name', default=False)
 
 class search(FlaskForm):
-    search = StringField('search', validators=[DataRequired()])   
+    search = StringField('search', validators=[DataRequired()])  
 
-   
+
+class Newsletterform(FlaskForm):
+    name = StringField('name', validators=[DataRequired()])
+    email = StringField('email', validators=[DataRequired(),Email()])

@@ -1,18 +1,32 @@
 from flask import render_template,request,redirect, url_for,flash
 from app import app
 from models import *
-from forms import contactform, Registerform,Login,message,favorit,search
+from forms import contactform, Registerform,Login,message,favorit,search,Newsletterform
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import login_user,current_user,logout_user
 
-@app.route("/")
+@app.route("/",methods=["GET","POST"])
 def main():
     data=Product.query.all()
     dataofproduct=category.query.all()
+    form=Newsletterform()
+    if request.method =="POST":
+        form=Newsletterform(request.form)
+
+
+        if form.validate_on_submit():
+            dataa= newsletter(
+                name=form.name.data,
+                email=form.email.data,
+
+            )
+            dataa.save()
 
 
 
-    return render_template("shop.html",data=data,data1=dataofproduct)
+
+
+    return render_template("shop.html",data=data,data1=dataofproduct,form=form)
 
 @app.route("/category/<int:id>")
 def product(id):
@@ -48,7 +62,16 @@ def detail(id):
     for i in review:
         listforshowing.append([User.query.get(i.user_id).username,i.content])
     
-    return render_template("detail.html",data=data,form=form,review=listforshowing,lenreview=review,favform=favform,filterbycategory=filterbycategory)
+    return render_template("detail.html",
+                           data=data,
+                           form=form,
+                           review=listforshowing,
+                           lenreview=review,
+                           favform=favform,
+                           filterbycategory=filterbycategory)
+
+
+
 
 @app.route("/favorite",methods=['GET','POST'])
 def favoritepage():
@@ -166,7 +189,7 @@ def login():
                 login_user(user)
                 x=user.username
                 
-                return render_template("shop.html",data=data,namee=x)
+                return redirect("/")
 
 
 
